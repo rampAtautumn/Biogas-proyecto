@@ -8,7 +8,8 @@ namespace valid
 {
 
     // Validation
-    bool validation(bc::variables &valid, bool f_CH4v = true, bool VSv = true, bool Vv = true); // f_CH4, VS y V_biogas
+   // vnio.hpp
+    bool validation(bc::variables &valid, bool f_CH4v = true, bool VSv = true, bool Vv = true, int depth = 0);
     bool option_changev(int op1, int op2);
     bool read_int(int& x);
 

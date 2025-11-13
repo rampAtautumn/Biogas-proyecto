@@ -10,41 +10,58 @@ using bc::variables;
 namespace valid
 {
 
-
-    bool validation(bc::variables &valid, bool f_CH4v, bool VSv, bool Vv)
+    bool validation(bc::variables &valid, bool f_CH4v, bool VSv, bool Vv, int depth)
     {
-        bool valid_aux = false;
+        const int MAX_DEPTH = 5; // Limite de reintentos
+
+        bool all_valid = true;
 
         if (f_CH4v)
         {
             bool cond = (valid.f_CH4 > 0 && valid.f_CH4 <= 0.8);
-            if (cond)
-                h::validations.f_CH4v = true;
-            valid_aux = valid_aux || cond;
+            h::validations.f_CH4v = cond;
+            all_valid = all_valid && cond;
         }
 
         if (VSv)
         {
             bool cond = (valid.VS > 0 && valid.VS <= 1);
-            if (cond)
-                h::validations.Vsval = true;
-            valid_aux = valid_aux || cond;
+            h::validations.Vsval = cond;
+            all_valid = all_valid && cond;
         }
 
         if (Vv)
         {
             bool cond = (valid.V_biogas > 0);
-            if (cond)
-                h::validations.Volval = true;
-            valid_aux = valid_aux || cond;
+            h::validations.Volval = cond;
+            all_valid = all_valid && cond;
         }
 
-        if (valid_aux)
+        if (all_valid)
             return true;
 
+        // Límite de recursión alcanzado
+        if (depth >= MAX_DEPTH)
+        {
+            std::cout << "Demasiados intentos fallidos. Abortando validación.\n";
+            return false;
+        }
+
         valout();
-        input_request(valid, h::validations.f_CH4v, h::validations.Vsval, h::validations.Volval);
-        return validation(valid, h::validations.f_CH4v, h::validations.Vsval, h::validations.Volval);
+
+        // Pedir nuevos datos solo para los que no son válidos
+        bc::variables temp = input_request(valid,
+                                           !h::validations.f_CH4v,
+                                           !h::validations.Vsval,
+                                           !h::validations.Volval);
+
+        update_vals(valid, temp,
+                    !h::validations.f_CH4v,
+                    !h::validations.Vsval,
+                    !h::validations.Volval);
+
+        // Llamada recursiva con contador incrementado
+        return validation(valid, true, true, true, depth + 1);
     }
 
     bool option_changev(int op1, int op2)

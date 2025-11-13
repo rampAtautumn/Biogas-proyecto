@@ -21,7 +21,10 @@ int main(void)
     bc::nutcalc nut;
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
+    gen.f_CH4 = 0;
+    gen.VS = 0;
+    gen.V_biogas = 0;
 
     h::menu(gen, temp, Bas, pur, res, E, nut);
-    return 1;
+    return 0;
 }
