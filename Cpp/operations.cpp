@@ -28,7 +28,6 @@ namespace op
         resout.liquid_mass = resout.total_mass * bc::Factor_residuo_liquído;
         resout.solid_v = resout.solid_mass / bc::Densidad_media;
         resout.liq_v = resout.liquid_mass / bc::Densidad_media;
-    
     }
 
     void Energy(bc::variables &in, bc::Ecalc &Eout)
@@ -36,8 +35,13 @@ namespace op
         Eout.TE = in.V_biogas * in.f_CH4 * bc::PCI_CH4;
         Eout.TheoricalElectricE = Eout.TE * bc::Eta_Electrica;
         Eout.Q = Eout.TE * bc::Eta_Termica;
-        Eout.bioperformance = (Eout.Q / Eout.bioperformance) * 100;
+
+        Eout.bioperformance = (Eout.Q / Eout.TE) * 100;
         Eout.Termper = Eout.bioperformance;
+
+        Eout.PCI = bc::PCI_CH4;
+        Eout.BioEnergy = Eout.Q;
+        Eout.ElectricEnergy = Eout.TheoricalElectricE;
     }
 
     void nutrients(bc::variables &in, bc::nutcalc &nutout, bc::rescalc &r)

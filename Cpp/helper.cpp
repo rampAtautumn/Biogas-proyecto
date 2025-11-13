@@ -217,6 +217,10 @@ namespace h
                         break;
                     }
                     valid::update_vals(gen, temp, true, true, true);
+                    h::validations.f_CH4v = true;
+                    h::validations.Vsval = true;
+                    h::validations.Volval = true;
+
                     op::Bascalc(gen, Bas);
                     valid::bascalcout(Bas);
                     pause();
@@ -240,6 +244,10 @@ namespace h
                         break;
                     }
                     valid::update_vals(gen, temp, true, false, false);
+                    h::validations.f_CH4v = true;
+                    h::validations.Vsval = true;
+                    h::validations.Volval = true;
+
                     op::purity(gen, pur);
                     valid::purityout(pur);
                     pause();
@@ -262,6 +270,10 @@ namespace h
                         break;
                     }
                     valid::update_vals(gen, temp, false, true, false);
+                    h::validations.f_CH4v = true;
+                    h::validations.Vsval = true;
+                    h::validations.Volval = true;
+
                     op::residues(gen, res);
                     valid::residuesout(res);
                     pause();
@@ -285,6 +297,10 @@ namespace h
                         break;
                     }
                     valid::update_vals(gen, temp, true, false, true);
+                    h::validations.f_CH4v = true;
+                    h::validations.Vsval = true;
+                    h::validations.Volval = true;
+
                     op::Energy(gen, E);
                     valid::Eout(E);
                     pause();
@@ -307,6 +323,10 @@ namespace h
                         break;
                     }
                     valid::update_vals(gen, temp, false, true, false);
+                    h::validations.f_CH4v = true;
+                    h::validations.Vsval = true;
+                    h::validations.Volval = true;
+
                     op::nutrients(gen, nut, res);
                     valid::nutrientout(nut);
                     pause();
