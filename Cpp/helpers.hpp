@@ -9,12 +9,13 @@
 #include <string_view>
 #include <vector>
 
-namespace h
+namespace helper
+
 {
-    bc::variables value_change(bc::variables gen);
+    biogasconstants::variables value_change(biogasconstants::variables gen);
     extern bool combos[4][4][3];
     void helpercomb(int op1, int op2);
-    void menu(bc::variables &gen, bc::variables &temp,bc::bascalcs &Bas, bc::purcalc &pur, bc::rescalc &res,bc::Ecalc &E, bc::nutcalc &nut);
+    void menu(biogasconstants::variables &gen, biogasconstants::variables &temp,biogasconstants::bascalcs &Bas, biogasconstants::purcalc &pur, biogasconstants::rescalc &res,biogasconstants::Ecalc &E, biogasconstants::nutcalc &nut);
     void pause();
     void creatobj();
 

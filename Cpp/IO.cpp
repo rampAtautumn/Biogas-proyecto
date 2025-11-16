@@ -3,9 +3,9 @@
 #include "vnio.hpp"
 #include <string>
 
-using bc::variables;
+using biogasconstants::variables;
 
-namespace valid
+namespace validations
 {
     variables input_request(variables &in, bool f_CH4v, bool VSv, bool Vv)
     {
@@ -30,7 +30,7 @@ namespace valid
 
         return temp;
     }
-    void update_vals(bc::variables &in, const variables &temp, bool f_CH4v, bool VSv, bool Vv)
+    void update_vals(biogasconstants::variables &in, const variables &temp, bool f_CH4v, bool VSv, bool Vv)
     {
         if (f_CH4v)
         {
@@ -53,7 +53,7 @@ namespace valid
                   << "f_CH4 debe ser un valor mayor a 0 y menor o igual a 0.8" << std::endl
                   << "VS debe ser mayor a 0 y menor o igual a 1, y el volumen debe ser mayor a 0" << std::endl;
     }
-    void bascalcout(const bc::bascalcs &basres)
+    void bascalcout(const biogasconstants::bascalcs &basres)
     {
         std::cout << "CH4 production: " << basres.CH4production << "m³" << std::endl
                   << "volatid solids on exit: " << basres.VSout << "Kg" << std::endl
@@ -61,13 +61,13 @@ namespace valid
                   << "Real DE: " << basres.real_DE << std::endl
                   << "remain solids: " << basres.remain_solid << std::endl;
     }
-    void purityout(const bc::purcalc &puresults)
+    void purityout(const biogasconstants::purcalc &puresults)
     {
         std::cout << "CH4 percent: " << puresults.CH4_percent << std::endl
                   << "CO2 to CH4 relations: " << puresults.CO2_CH4_relation << std::endl
                   << "other gases: " << puresults.other_gas << std::endl;
     }
-    void residuesout(const bc::rescalc &res)
+    void residuesout(const biogasconstants::rescalc &res)
     {
         std::cout << "total mass: " << res.total_mass << "kg" << std::endl
                   << "total solid mass: " << res.total_mass << "kg" << std::endl
@@ -75,7 +75,7 @@ namespace valid
                   << "Solid volume: " << res.solid_v << "m³" << std::endl
                   << "liquid volume: " << res.liq_v << "m³" << std::endl;
     }
-    void Eout(const bc::Ecalc &Eres)
+    void Eout(const biogasconstants::Ecalc &Eres)
     {
         std::cout << "Q: " << Eres.Q << "J" << std::endl
                   << "Theorical E: " << Eres.TE << "J" << std::endl
@@ -86,7 +86,7 @@ namespace valid
                   << "Termical E performance : " << Eres.Termper << "J" << std::endl
                   << "Bio performance: " << Eres.bioperformance << std::endl;
     }
-    void nutrientout(const bc::nutcalc &nutres)
+    void nutrientout(const biogasconstants::nutcalc &nutres)
     {
         std::cout << "Total N: " << nutres.Total_N << "kg" << std::endl
                   << "Total P: " << nutres.Total_P << "kg" << std::endl

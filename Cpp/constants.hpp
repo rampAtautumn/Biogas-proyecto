@@ -3,7 +3,7 @@
 #ifndef Constants_HPP
 #define Constants_HPP
 
-namespace bc
+namespace biogasconstants
 {
     // Calculadora basica
     constexpr double Avg_DE = 0.6;

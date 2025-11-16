@@ -8,9 +8,10 @@
 #include "vnio.hpp"
 #include <vector>
 
-using bc::variables;
+using biogasconstants::variables;
 
-namespace h
+namespace helper
+
 {
     flagsinput current;
     flagsvalid validations;
@@ -32,7 +33,7 @@ namespace h
                 std::cout << "\nIngrese una opción: ";
                 std::cin >> choice;
 
-                if (!valid::read_int(choice))
+                if (!validations::read_int(choice))
                 {
                     std::cout << "Error, solo se admiten números.\n";
                     continue;
@@ -49,7 +50,7 @@ namespace h
             {
             case 1:
             {
-                valid::input_request(gen, true, true, true);
+                validations::input_request(gen, true, true, true);
                 break;
             }
 
@@ -59,9 +60,9 @@ namespace h
                 int op2 = 0;
                 std::cout << "¿cuales 2 variables desea cambiar?" << std::endl;
                 std::cin >> op1 >> op2;
-                valid::option_changev(op1, op2);
+                validations::option_changev(op1, op2);
                 helpercomb(op1, op2);
-                valid::input_request(gen, current.f_CH4, current.Vsv, current.Vv);
+                validations::input_request(gen, current.f_CH4, current.Vsv, current.Vv);
                 break;
             }
 
@@ -71,9 +72,9 @@ namespace h
                 int op2 = 0;
                 std::cout << "¿cual variable desea cambiar?" << std::endl;
                 std::cin >> op1;
-                valid::option_changev(op1, op2);
+                validations::option_changev(op1, op2);
                 helpercomb(op1, op2);
-                valid::input_request(gen, current.f_CH4, current.Vsv, current.Vv);
+                validations::input_request(gen, current.f_CH4, current.Vsv, current.Vv);
                 break;
             }
             case 4:
@@ -161,7 +162,7 @@ namespace h
         std::cin.get();
     }
 
-    void menu(bc::variables &gen, bc::variables &temp, bc::bascalcs &Bas, bc::purcalc &pur, bc::rescalc &res, bc::Ecalc &E, bc::nutcalc &nut)
+    void menu(biogasconstants::variables &gen, biogasconstants::variables &temp, biogasconstants::bascalcs &Bas, biogasconstants::purcalc &pur, biogasconstants::rescalc &res, biogasconstants::Ecalc &E, biogasconstants::nutcalc &nut)
     {
         int choice = -1;
         while (choice != 0)
@@ -186,7 +187,7 @@ namespace h
 
             while (true)
             {
-                if (!valid::read_int(choice))
+                if (!validations::read_int(choice))
                 {
                     std::cout << "Error, solo se admiten números.\n";
                     continue;
@@ -201,134 +202,134 @@ namespace h
             switch (choice)
             {
             case 1:
-                if (h::validations.f_CH4v && h::validations.Vsval && h::validations.Volval)
+                if (helper::validations.f_CH4v && helper::validations.Vsval && helper::validations.Volval)
                 {
-                    op::Bascalc(gen, Bas);
-                    valid::bascalcout(Bas);
+                     operations::Bascalc(gen, Bas);
+                    validations::bascalcout(Bas);
                     pause();
                     break;
                 }
                 else
                 {
-                    temp = valid::input_request(gen, true, true, true);
-                    if (!valid::validation(temp, true, true, true))
+                    temp = validations::input_request(gen, true, true, true);
+                    if (!validations::validation(temp, true, true, true))
                     {
                         std::cout << "Error: valores inválidos, no se puede calcular.\n";
                         break;
                     }
-                    valid::update_vals(gen, temp, true, true, true);
-                    h::validations.f_CH4v = true;
-                    h::validations.Vsval = true;
-                    h::validations.Volval = true;
+                    validations::update_vals(gen, temp, true, true, true);
+                    helper::validations.f_CH4v = true;
+                    helper::validations.Vsval = true;
+                    helper::validations.Volval = true;
 
-                    op::Bascalc(gen, Bas);
-                    valid::bascalcout(Bas);
+                     operations::Bascalc(gen, Bas);
+                    validations::bascalcout(Bas);
                     pause();
                     break;
                 }
 
             case 2:
-                if (h::validations.f_CH4v && h::validations.Vsval && h::validations.Volval)
+                if (helper::validations.f_CH4v && helper::validations.Vsval && helper::validations.Volval)
                 {
-                    op::purity(gen, pur);
-                    valid::purityout(pur);
+                     operations::purity(gen, pur);
+                    validations::purityout(pur);
                     pause();
                     break;
                 }
                 else
                 {
-                    temp = valid::input_request(gen, true, false, false);
-                    if (!valid::validation(temp, true, true, true))
+                    temp = validations::input_request(gen, true, false, false);
+                    if (!validations::validation(temp, true, true, true))
                     {
                         std::cout << "Error: valores inválidos, no se puede calcular.\n";
                         break;
                     }
-                    valid::update_vals(gen, temp, true, false, false);
-                    h::validations.f_CH4v = true;
-                    h::validations.Vsval = true;
-                    h::validations.Volval = true;
+                    validations::update_vals(gen, temp, true, false, false);
+                    helper::validations.f_CH4v = true;
+                    helper::validations.Vsval = true;
+                    helper::validations.Volval = true;
 
-                    op::purity(gen, pur);
-                    valid::purityout(pur);
+                     operations::purity(gen, pur);
+                    validations::purityout(pur);
                     pause();
                     break;
                 }
             case 3:
-                if (h::validations.f_CH4v && h::validations.Vsval && h::validations.Volval)
+                if (helper::validations.f_CH4v && helper::validations.Vsval && helper::validations.Volval)
                 {
-                    op::residues(gen, res);
-                    valid::residuesout(res);
+                     operations::residues(gen, res);
+                    validations::residuesout(res);
                     pause();
                     break;
                 }
                 else
                 {
-                    temp = valid::input_request(gen, false, true, false);
-                    if (!valid::validation(temp, true, true, true))
+                    temp = validations::input_request(gen, false, true, false);
+                    if (!validations::validation(temp, true, true, true))
                     {
                         std::cout << "Error: valores inválidos, no se puede calcular.\n";
                         break;
                     }
-                    valid::update_vals(gen, temp, false, true, false);
-                    h::validations.f_CH4v = true;
-                    h::validations.Vsval = true;
-                    h::validations.Volval = true;
+                    validations::update_vals(gen, temp, false, true, false);
+                    helper::validations.f_CH4v = true;
+                    helper::validations.Vsval = true;
+                    helper::validations.Volval = true;
 
-                    op::residues(gen, res);
-                    valid::residuesout(res);
+                     operations::residues(gen, res);
+                    validations::residuesout(res);
                     pause();
                     break;
                 }
 
             case 4:
-                if (h::validations.f_CH4v && h::validations.Vsval && h::validations.Volval)
+                if (helper::validations.f_CH4v && helper::validations.Vsval && helper::validations.Volval)
                 {
-                    op::Energy(gen, E);
-                    valid::Eout(E);
+                     operations::Energy(gen, E);
+                    validations::Eout(E);
                     pause();
                     break;
                 }
                 else
                 {
-                    temp = valid::input_request(gen, true, false, true);
-                    if (!valid::validation(temp, true, true, true))
+                    temp = validations::input_request(gen, true, false, true);
+                    if (!validations::validation(temp, true, true, true))
                     {
                         std::cout << "Error: valores inválidos, no se puede calcular.\n";
                         break;
                     }
-                    valid::update_vals(gen, temp, true, false, true);
-                    h::validations.f_CH4v = true;
-                    h::validations.Vsval = true;
-                    h::validations.Volval = true;
+                    validations::update_vals(gen, temp, true, false, true);
+                    helper::validations.f_CH4v = true;
+                    helper::validations.Vsval = true;
+                    helper::validations.Volval = true;
 
-                    op::Energy(gen, E);
-                    valid::Eout(E);
+                     operations::Energy(gen, E);
+                    validations::Eout(E);
                     pause();
                     break;
                 }
             case 5:
-                if (h::validations.f_CH4v && h::validations.Vsval && h::validations.Volval)
+                if (helper::validations.f_CH4v && helper::validations.Vsval && helper::validations.Volval)
                 {
-                    op::nutrients(gen, nut, res);
-                    valid::nutrientout(nut);
+                     operations::nutrients(gen, nut, res);
+                    validations::nutrientout(nut);
                     pause();
                     break;
                 }
                 else
                 {
-                    temp = valid::input_request(gen, false, true, false);
-                    if (!valid::validation(temp, true, true, true))
+                    temp = validations::input_request(gen, false, true, false);
+                    if (!validations::validation(temp, true, true, true))
                     {
                         std::cout << "Error: valores inválidos, no se puede calcular.\n";
                         break;
                     }
-                    valid::update_vals(gen, temp, false, true, false);
-                    h::validations.f_CH4v = true;
-                    h::validations.Vsval = true;
-                    h::validations.Volval = true;
+                    validations::update_vals(gen, temp, false, true, false);
+                    helper::validations.f_CH4v = true;
+                    helper::validations.Vsval = true;
+                    helper::validations.Volval = true;
 
-                    op::nutrients(gen, nut, res);
-                    valid::nutrientout(nut);
+                     operations::nutrients(gen, nut, res);
+                    validations::nutrientout(nut);
                     pause();
                     break;
                 }
